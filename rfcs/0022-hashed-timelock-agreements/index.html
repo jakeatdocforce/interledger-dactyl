@@ -102,7 +102,7 @@
 <blockquote>
 <p>Generalization of <a href="#background-on-hashed-timelock-contracts-htlcs">Hashed-Timelock Contracts (HTLCs)</a> used to secure Interledger payments.</p>
 </blockquote>
-<p><em>This document assumes some familiarity with HTLCs and Interledger. It briefly summarizes both but it may be best read after <a href="/rfcs/0001-interledger-architecture/">IL-RFC 1: Interledger Architecture</a>.</em></p>
+<p><em>This document assumes some familiarity with HTLCs and Interledger. It briefly summarizes both but it may be best read after <a href="rfcs/0001-interledger-architecture/">IL-RFC 1: Interledger Architecture</a>.</em></p>
 <p>Interledger provides secure multi-hop payments using conditional transfers. Some ledgers natively provide conditional transfers using Hashed-Timelock Contracts (HTLCs). However, not all ledgers support HTLCs.</p>
 <p>Hashed-Timelock Agreements (HTLAs) are a generalization of HTLCs that can be implemented over any type of ledger, whether or not the ledger supports HTLCs. HTLAs work with public and private blockchains, centralized ledgers, payment channels, and even with cash or cases where there is no ledger. There is a spectrum of HTLA types that require varying levels of ledger functionality and bilateral trust. This document describes how HTLAs work and outlines the features and tradeoffs of the different options.</p>
 <p><strong>Note: Interledger payments can securely cross multiple types of HTLAs at the same time. The selection of HTLA type is strictly a bilateral decision. The type of HTLA used does not affect the security of others in the path.</strong> For details on this see <a href="#interledger-across-diverse-htlas">Interledger Across Diverse HTLAs</a>.</p>
@@ -146,7 +146,7 @@ Alice --(Blockchain A)--&gt; Connector 1 --(Blockchain B)--&gt; Connector 2 --(B
 <p>The Interledger protocol flow (detailed below) ensures that each participant only needs to care about the HTLAs in which they are directly involved. Failure in a different part of the path -- or the selection of a seemingly unwise HTLA type -- does not affect any other agreements.</p>
 <h4 id="interledger-protocol-payment-flow">Interledger Protocol payment flow:</h4>
 <ol>
-<li><code>Alice</code> and <code>Bob</code> agree on the hashlock <code>H</code>. The preimage <code>P</code> is only known to <code>Bob</code> (and to <code>Alice</code> in the case of <a href="/rfcs/0016-pre-shared-key/">PSK</a>).</li>
+<li><code>Alice</code> and <code>Bob</code> agree on the hashlock <code>H</code>. The preimage <code>P</code> is only known to <code>Bob</code> (and to <code>Alice</code> in the case of <a href="rfcs/0016-pre-shared-key/">PSK</a>).</li>
 <li><code>Alice</code> prepares the transfer to <code>Connector 1</code> by creating and funding an HTLC on <code>Blockchain A</code> with hashlock <code>H</code> (see <a href="#on-ledger-holds-escrow-using-htlcs">On-Ledger Holds/Escrow</a>).</li>
 <li><code>Connector 1</code> prepares a transfer to <code>Connector 2</code> via their shared payment channel, also using hashlock <code>H</code> (see <a href="#simple-payment-channels">Simple Payment Channels</a>).</li>
 <li><code>Connector 2</code> prepares a transfer to <code>Bob</code> on their shared trustline using Hashlock <code>H</code> (see <a href="#trustlines">Trustlines</a>).</li>
@@ -155,7 +155,7 @@ Alice --(Blockchain A)--&gt; Connector 1 --(Blockchain B)--&gt; Connector 2 --(B
 <li>If <code>Connector 1</code> submits <code>P</code> to <code>Blockchain A</code> before the timeout, the transfer will be executed and <code>Alice</code> will receive the proof <code>P</code> that <code>Bob</code> was paid. (Note again that whether the HTLC on <code>Blockchain A</code> is properly executed only matters to <code>Alice</code> and <code>Connector 1</code>. The properties of a ledger only matter to the parties holding accounts on that ledger.)</li>
 </ol>
 <p>One way to think of this is that HTLAs abstract away what it means to "get paid". That is just an agreement between two parties and no one else cares how that is structured. All that matters is that each individual is happy with the agreements they're directly a part of. Since all of the hashlocks will be the same, either all of the transfers will happen or none of them will (barring the connector fulfillment failure).</p>
-<p>For more details on the Interledger protocol suite and security, see <a href="/rfcs/0001-interledger-architecture/">IL-RFC 1: Interledger Architecture</a>.</p>
+<p>For more details on the Interledger protocol suite and security, see <a href="rfcs/0001-interledger-architecture/">IL-RFC 1: Interledger Architecture</a>.</p>
 <p><em>Internet "hat tip": the importance of being able to integrate <strong>any</strong> type of network was demonstrated by <a href="https://tools.ietf.org/html/rfc1149">RFC 1149: A Standard for the Transmission of IP Datagrams on Avian Carriers</a>.</em></p>
 <h2 id="spectrum-of-htla-types">Spectrum of HTLA Types</h2>
 <p>The various types of HTLAs present a tradeoffs between complexity and risk. The more functionality a ledger provides, the less the users of that ledger need to trust one another.</p>

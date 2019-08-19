@@ -198,7 +198,7 @@
 <p>Like IP packets, the most important header is the <strong>destination.</strong> This is the ILP Address of the node that should receive the packet. However, unlike IP packets, the address of the sender is NOT recorded in the headers. This is because a response packet (ILP Fulfill or ILP Reject) MUST be routed back along exactly the same route as the original request (ILP Prepare) so a receiver has no need for the sender's address as they can simply provide responses in the payload of the response packet.</p>
 <p>To correctly route responses, an ILP node must ensure it persists the state of an ILP Prepare packet, at least as long as specified in the <strong>expiresAt</strong> header. When a response to the ILP Prepare is received (either an ILP Fulfill or ILP Reject) from the outgoing link it MUST be routed down the same link on which the ILP Prepare was received. </p>
 <p>If the packet expires before a response is received from the outgoing link then the connecter MUST send an ILP Reject packet as the response on the incoming link. Response packets that are received after the request has expired can be discarded.</p>
-<p>The link protocol (e.g. <a href="/rfcs/0023-bilateral-transfer-protocol/">BTP</a>) used to communicate with peers MUST allow the node to match requests and responses such that when a response (ILP Fulfill or ILP Reject) is received from an outgoing link it can be matched to the original.</p>
+<p>The link protocol (e.g. <a href="rfcs/0023-bilateral-transfer-protocol/">BTP</a>) used to communicate with peers MUST allow the node to match requests and responses such that when a response (ILP Fulfill or ILP Reject) is received from an outgoing link it can be matched to the original.</p>
 <h2 id="ilp-addresses">ILP Addresses</h2>
 <p>An ILP packet is addressed using an ILP Address. The ILP Addressing scheme is similar to the IP addressing scheme (both IPv4 and IPv6) in that the scheme is a hierarchical address space where routing is done based on (primarily) longest prefix match of a destination address against the address range prefixes in the node's routing table.</p>
 <p>Unlike IP addresses, ILP addresses are variable in size and encoded as IA7 (ASCII) strings of dot (<code>.</code>) separated segments. The valid characters in an address segment are alphanumeric plus Underscore (<code>_</code>), Tilde (<code>~</code>) and Hyphen (<code>-</code>) and are case sensitive which allows base64 encoded data to be encoded into address segments.</p>
@@ -242,7 +242,7 @@
 <li>Notification of a settlement event</li>
 <li>Request to perform settlement</li>
 </ul>
-<p>A concrete implementation of this interface is defined for the reference Javascript node implementation in the <a href="/rfcs/0024-ledger-plugin-interface-2/">Ledger Plugin Interface v2</a>.</p>
+<p>A concrete implementation of this interface is defined for the reference Javascript node implementation in the <a href="rfcs/0024-ledger-plugin-interface-2/">Ledger Plugin Interface v2</a>.</p>
 <p>## Balance Management</p>
 <p>TODO</p>
     </div>

@@ -100,7 +100,7 @@
     <div class="content doc-content">
         <h1 id="peering-clearing-and-settling">Peering, Clearing and Settling</h1>
 <p>The Interledger network is a graph of nodes (connectors) that have peered with one another by establishing a means of exchanging ILP packets and a means of paying one another for the successful forwarding and delivery of the packets.</p>
-<p>Further details on the ILP Protocol can be found in the <a href="/rfcs/0027-interledger-protocol-4/">specification</a>.</p>
+<p>Further details on the ILP Protocol can be found in the <a href="rfcs/0027-interledger-protocol-4/">specification</a>.</p>
 <h2 id="accounts-and-balances">Accounts and Balances</h2>
 <p>The edge between any two nodes (peers) is a communication link (for exchanging ILP packets and other data), and an account held between the peers (the Interledger account). The Interledger account has a balance denominated in a mutually agreed upon asset (e.g. USD) at an agreed upon scale (e.g. 2). The balance on the account is <strong>the net total of the amounts on any packets "successfully" routed between the peers</strong>.</p>
 <p>The balance on the Interledger account can only change as a result of two events:
@@ -114,7 +114,7 @@
 <p><strong>Example : Alice and Bob peer using Satoshis</strong></p>
 <ul>
 <li>Alice and Bob are nodes on the network.  </li>
-<li>They agree to peer and exchange ILP packets using the <a href="/rfcs/0023-bilateral-transfer-protocol/">Bilateral Transfer Protocol (BTP)</a></li>
+<li>They agree to peer and exchange ILP packets using the <a href="rfcs/0023-bilateral-transfer-protocol/">Bilateral Transfer Protocol (BTP)</a></li>
 <li>They also agree to denominate their Interledger account in Bitcoin (BTC) at a scale of 8 and settle using the Lightning network.</li>
 </ul>
 <p>In this scenario Alice and Bob exchange ILP packets, which they are either sending or forwarding on behalf of another peer, using the BTP protocol. Every ILP Prepare packet has an amount (represented as an unsigned 64-bit integer). Because of how they have agreed to setup their peering relationship a packet with an amount of 5 represents 0.00000005 BTC (5 satoshis).</p>

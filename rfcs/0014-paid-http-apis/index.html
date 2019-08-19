@@ -116,7 +116,7 @@
 <h3 id="11-server-admin-installs-an-ilp-payment-module">1.1. Server admin installs an ILP payment module</h3>
 <p>After deciding to use HTTP-ILP, Ankita searches the web on instructions on how to set this up. She finds an open-source HTTP-ILP server module which is compatible with the REST framework (<a href="https://koajs.com">Koa</a>) that she is already using, for instance <a href="https://github.com/justmoon/koa-ilp">koa-ilp</a>.</p>
 <p>She installs the HTTP-ILP server module. The module provides middleware which she adds to the different API endpoints in order to set prices for each one.</p>
-<p>According to the documentation of the HTTP-ILP server module, she learns that she can pass an <a href="/rfcs/0004-ledger-plugin-interface/">Interledgerjs plugin</a> to the module, to receive payments.</p>
+<p>According to the documentation of the HTTP-ILP server module, she learns that she can pass an <a href="rfcs/0004-ledger-plugin-interface/">Interledgerjs plugin</a> to the module, to receive payments.</p>
 <h3 id="12-server-admin-sets-up-a-new-receiver">1.2. Server admin sets up a new receiver</h3>
 <p>Ankita creates a dedicated subaccount under her account at her Interledger service provider, and takes a note of that subaccount's credentials.</p>
 <h3 id="13-server-admin-enters-credentials-into-the-http-ilp-server-module-config">1.3. Server admin enters credentials into the HTTP-ILP server module config</h3>
@@ -126,9 +126,9 @@ export PLUGIN_CONFIG={"server":"btp+wss://ankita+filepay:fxPERNaS4FGlC8H7eg6UfYV
 </code></pre>
 <p>Next, she restarts her server to load the new configuration.</p>
 <h3 id="14-paid-http-server-fetches-receiver-information">1.4. Paid HTTP server fetches receiver information</h3>
-<p>When the HTTP-ILP server module loads up, it calls <a href="/rfcs/0004-ledger-plugin-interface/#connect">plugin#connect</a> so that the plugin
+<p>When the HTTP-ILP server module loads up, it calls <a href="rfcs/0004-ledger-plugin-interface/#connect">plugin#connect</a> so that the plugin
 gets a subscription to its ledger. Through this subscription, the plugin can listen for incoming payments.
-The module then uses <a href="/rfcs/0004-ledger-plugin-interface/#getaccount">plugin#getAccount</a> to look up the Interledger address from the plugin
+The module then uses <a href="rfcs/0004-ledger-plugin-interface/#getaccount">plugin#getAccount</a> to look up the Interledger address from the plugin
 and caches it in memory for a certain period.</p>
 <p>This completes the setup process. The server is now ready to receive paid API requests.</p>
 <h2 id="2-client-interaction">2. Client interaction</h2>

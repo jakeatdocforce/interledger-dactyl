@@ -100,37 +100,37 @@
     <div class="content doc-content">
         <h1 id="spsp-invoices">SPSP Invoices</h1>
 <h2 id="preface">Preface</h2>
-<p>This document describes how conduct an Invoice Payment via <a href="/rfcs/0029-stream/">STREAM</a> once the payment details have been exchanged via the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP).</p>
+<p>This document describes how conduct an Invoice Payment via <a href="rfcs/0029-stream/">STREAM</a> once the payment details have been exchanged via the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP).</p>
 <h2 id="introduction">Introduction</h2>
 <h3 id="invoice-payments">Invoice Payments</h3>
 <p>An Invoice Payment is a push payment to an Invoice SPSP Endpoint that allows the Payer (sender) to settle outstanding balances with the Payee (receiver). The Invoice SPSP Endpoint MAY expose the details about the Invoice and, when receiving value, updates its outstanding balance accordingly.</p>
 <h3 id="motivation">Motivation</h3>
-<p>The <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP) only describes how the details required for a STREAM connection are exchanged and how simple push payments are made. Invoices require the SPSP server to keep track of incoming payments, i.e. act as an accounting server. </p>
+<p>The <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP) only describes how the details required for a STREAM connection are exchanged and how simple push payments are made. Invoices require the SPSP server to keep track of incoming payments, i.e. act as an accounting server. </p>
 <h3 id="scope">Scope</h3>
 <p>This document specifies Invoice specific endpoints on SPSP and payments to these. They are intended for wallet providers and merchants.</p>
 <h3 id="definitions">Definitions</h3>
 <ul>
 <li><strong>Invoice</strong> - A set of parameters describing the nature of the value transfer as well as its terms and status.</li>
 <li><strong>Invoice Payment</strong> - The process of completing an Invoice by transferring value to its corresponding Invoice SPSP Endpoint.</li>
-<li><strong>Payer</strong> - The entity that is sending units of value to an Invoice SPSP Endpoint on the Payee's <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>. It is running the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Client</a>.</li>
-<li><strong>Payee</strong> - The entity that is creating an Invoice SPSP Endpoint and receives units of value from the Payer using this Invoice SPSP Endpoint. It is running the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>.</li>
-<li><strong>Invoice Payment Pointer</strong> - A <a href="/rfcs/0026-payment-pointers/">Payment Pointer</a> that includes a unique and opaque string and represents an Invoice. The SPSP Client uses it to query the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Endpoint</a> on the SPSP Server, which MAY expose the details of the Invoice. It is the means by which the Payee keeps track of incoming payments. </li>
+<li><strong>Payer</strong> - The entity that is sending units of value to an Invoice SPSP Endpoint on the Payee's <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>. It is running the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Client</a>.</li>
+<li><strong>Payee</strong> - The entity that is creating an Invoice SPSP Endpoint and receives units of value from the Payer using this Invoice SPSP Endpoint. It is running the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>.</li>
+<li><strong>Invoice Payment Pointer</strong> - A <a href="rfcs/0026-payment-pointers/">Payment Pointer</a> that includes a unique and opaque string and represents an Invoice. The SPSP Client uses it to query the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Endpoint</a> on the SPSP Server, which MAY expose the details of the Invoice. It is the means by which the Payee keeps track of incoming payments. </li>
 </ul>
 <h3 id="operation-overview">Operation Overview</h3>
-<p>The Payer's SPSP Client will set up a <a href="/rfcs/0029-stream/">STREAM</a> connection to the Payee's SPSP Server using the Invoice Payment Pointer, as described by the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. On connection, the SPSP Client pushes as much value to the SPSP Server as necessary to complete the Invoice.</p>
+<p>The Payer's SPSP Client will set up a <a href="rfcs/0029-stream/">STREAM</a> connection to the Payee's SPSP Server using the Invoice Payment Pointer, as described by the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. On connection, the SPSP Client pushes as much value to the SPSP Server as necessary to complete the Invoice.</p>
 <h2 id="model-of-operation">Model of Operation</h2>
 <h3 id="creating-an-invoice-payment-pointer">Creating an Invoice Payment Pointer</h3>
 <p>Prior to the Invoice Payment, the Payee has to create the Invoice Payment Pointer representing the Invoice. This Invoice Payment Pointer MUST be unique to the Invoice. The Payee's SPSP Server SHOULD store the Invoice details associated to the Invoice Payment Pointer, which are defined in the <code>invoice</code>-object within the <a href="#Response-Body">Response Body</a>, in order to account for balance changes.</p>
 <h3 id="conducting-an-invoice-payment">Conducting an Invoice Payment</h3>
-<p>The Payer's SPSP Client opens a <a href="/rfcs/0029-stream/">STREAM</a> connection to the Payee's SPSP Server as described in the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. Once this connection is established, the process continues as follows: </p>
+<p>The Payer's SPSP Client opens a <a href="rfcs/0029-stream/">STREAM</a> connection to the Payee's SPSP Server as described in the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. Once this connection is established, the process continues as follows: </p>
 <p>The SPSP Client begins sending ILP packets using the STREAM protocol to complete the Invoice.
   1. The SPSP Client will adjust their <code>sendMax</code> to reflect the amount they're willing to send.
       * <code>sendMax</code> SHOULD be derived from the Invoice, i.e., <code>sendMax</code> SHOULD be equal to <code>push.invoice.amount - push.balance</code>, converted to the SPSP Client's operating asset, plus a buffer to take exchange rate fluctuations and connector fees into account.
   2. The SPSP Server will adjust their <code>receiveMax</code> to reflect the amount they're willing to receive.
       * <code>receiveMax</code> SHOULD be derived from the Invoice, i.e., <code>sendMax</code> SHOULD be equal to <code>push.invoice.amount - push.balance</code>, converted to the SPSP Server's operating asset, plus a buffer to take exchange rate fluctuations into account.
-  3. The SPSP Client's and Server's <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">STREAM Modules</a> will move as much value as possible while staying inside these bounds.
+  3. The SPSP Client's and Server's <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">STREAM Modules</a> will move as much value as possible while staying inside these bounds.
   4. If the SPSP Client reaches their <code>sendMax</code>, they end the stream and the connection. If the SPSP Server reaches their <code>receiveMax</code>, they will end the stream and the connection. Furthermore, when the SPSP Server has received enough value to fully pay the invoice, it ends the stream and the connection. In both cases, the connection is closed with a <code>NoError</code> code in the <code>ConnectionClose</code> frame.</p>
-<p>The STREAM parameters--<code>sendMax</code> and <code>receiveMax</code>--as well as the <code>ConnectionClose</code> frame are defined in <a href="/rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
+<p>The STREAM parameters--<code>sendMax</code> and <code>receiveMax</code>--as well as the <code>ConnectionClose</code> frame are defined in <a href="rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
 <h2 id="specification">Specification</h2>
 <h3 id="query-get-ltspsp-endpointgt">Query (<code>GET &lt;SPSP Endpoint&gt;</code>)</h3>
 <p>The SPSP Client queries the Invoice Payment Pointer to get information about the SPSP Server as well as Invoice specific details:</p>
@@ -175,13 +175,13 @@ Content-Type: application/spsp4+json
 <tbody>
 <tr>
 <td><code>destination_account</code></td>
-<td><a href="/rfcs/0015-ilp-addresses/">ILP Address</a></td>
-<td>(see <a href="/rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
+<td><a href="rfcs/0015-ilp-addresses/">ILP Address</a></td>
+<td>(see <a href="rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
 </tr>
 <tr>
 <td><code>shared_secret</code></td>
 <td>32 bytes, <a href="https://en.wikipedia.org/wiki/Base64">base64 encoded</a> (including padding)</td>
-<td>(see <a href="/rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
+<td>(see <a href="rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
 </tr>
 <tr>
 <td><code>push</code></td>

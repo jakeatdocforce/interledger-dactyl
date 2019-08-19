@@ -100,40 +100,40 @@
     <div class="content doc-content">
         <h1 id="spsp-pull-payments">SPSP Pull Payments</h1>
 <h2 id="preface">Preface</h2>
-<p>This document describes how to conduct Pull Payments via <a href="/rfcs/0029-stream/">STREAM</a> once the payment details have been exchanged via the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP).</p>
+<p>This document describes how to conduct Pull Payments via <a href="rfcs/0029-stream/">STREAM</a> once the payment details have been exchanged via the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP).</p>
 <h2 id="introduction">Introduction</h2>
 <h3 id="pull-payments">Pull Payments</h3>
 <p>In contrast to a push payment, where the Payer (sender) actively sends (pushes) units of value to the Payee (receiver), Pull Payments shift the active part from the Payer to the Payee. With the Payer's consent, the Payee can pull units of value directly from the Payer's account to their own account. The only active engagement of the Payer is required during the negotiation phase of the Pull Payment Agreement. </p>
 <h3 id="motivation">Motivation</h3>
-<p>The <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP) only describes how the details required for a STREAM connection are exchanged and how a simple push payment is made. However, it lacks a detailed explanation of how a Pull Payment is conducted using this connection. </p>
+<p>The <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a> (SPSP) only describes how the details required for a STREAM connection are exchanged and how a simple push payment is made. However, it lacks a detailed explanation of how a Pull Payment is conducted using this connection. </p>
 <h3 id="scope">Scope</h3>
 <p>This document specifies how to conduct a Pull Payment once a STREAM connection has been set up. It is intended for wallet providers and merchants.</p>
 <h3 id="definitions">Definitions</h3>
 <ul>
-<li><strong>Payer</strong> - The entity that units of value are pulled from by the Payee. It is running the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>.</li>
-<li><strong>Payee</strong> - The entity that is pulling units of value from the Payer. It is running the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Client</a>.</li>
+<li><strong>Payer</strong> - The entity that units of value are pulled from by the Payee. It is running the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Server</a>.</li>
+<li><strong>Payee</strong> - The entity that is pulling units of value from the Payer. It is running the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Client</a>.</li>
 <li><strong>Pull Payment</strong> - The process of pulling units of value from one account into another account.</li>
 <li><strong>Pull Payment Agreement</strong> - An agreement between the Payer and the Payee that specifies how much value can be pulled how often and for how long. </li>
-<li><strong>Pull Payment Pointer</strong> - A <a href="/rfcs/0026-payment-pointers/">Payment Pointer</a> that includes a unique and opaque string and represents a Pull Payment Agreement. The SPSP Client uses it to query the <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Endpoint</a> on the SPSP Server. </li>
+<li><strong>Pull Payment Pointer</strong> - A <a href="rfcs/0026-payment-pointers/">Payment Pointer</a> that includes a unique and opaque string and represents a Pull Payment Agreement. The SPSP Client uses it to query the <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">SPSP Endpoint</a> on the SPSP Server. </li>
 </ul>
 <h3 id="operation-overview">Operation Overview</h3>
-<p>The Payee's SPSP Client will set up a <a href="/rfcs/0029-stream/">STREAM</a> connection to the Payer's SPSP Server using the Pull Payment Pointer, as described by the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. On connection, the SPSP Client tries to pull value from the SPSP server, staying within the terms of the Pull Payment Agreement.</p>
+<p>The Payee's SPSP Client will set up a <a href="rfcs/0029-stream/">STREAM</a> connection to the Payer's SPSP Server using the Pull Payment Pointer, as described by the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. On connection, the SPSP Client tries to pull value from the SPSP server, staying within the terms of the Pull Payment Agreement.</p>
 <h2 id="model-of-operation">Model of Operation</h2>
 <h3 id="negotiating-the-pull-payment-agreement">Negotiating the Pull Payment Agreement</h3>
 <p>Prior to a Pull Payment, the Payer and the Payee have to negotiate a Pull Payment Agreement. This agreement SHOULD be comprised of the parameters defined in the <code>agreement</code>-object within the <a href="#Response-Body">Response Body</a>. The Payer's SPSP Server SHOULD store the negotiated Pull Payment Agreement parameters.</p>
 <p>The result of the negotiation is a Pull Payment Pointer representing the Pull Payment Agreement. The Pull Payment Pointer is required by the Payee's SPSP Client to connect to the Payer's SPSP server. </p>
 <p>Implementations MAY try to parse the Pull Payment Pointer, however, it MUST support totally opaque Pull Payment Pointers. </p>
 <h3 id="conducting-the-pull-payment">Conducting the Pull Payment</h3>
-<p>The Payee's SPSP Client opens a <a href="/rfcs/0029-stream/">STREAM</a> connection to the Payer's SPSP Server as described in the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. </p>
+<p>The Payee's SPSP Client opens a <a href="rfcs/0029-stream/">STREAM</a> connection to the Payer's SPSP Server as described in the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol</a>. </p>
 <p>Once this connection is established, the process continues as follows: </p>
 <p>The SPSP Server begins sending ILP packets to complete the Pull Payment.
   1. The SPSP Server will adjust their <code>sendMax</code> to reflect the amount they're willing to send.
       * <code>sendMax</code> SHOULD be derived from the Pull Payment Agreement parameters, i.e., <code>sendMax</code> SHOULD be equal to <code>pull.balance.available</code>, converted to the SPSP Server's operating asset, taking exchange rate fluctuations into account.
   2. The SPSP Client will adjust their <code>receiveMax</code> to reflect the amount they're willing to receive.
       * <code>receiveMax</code> MAY be <code>Infinity</code>.
-  3. The SPSP Client's and Server's <a href="/rfcs/0009-simple-payment-setup-protocol/#Definitions">STREAM Modules</a> will move as much value as possible while staying inside these bounds.
+  3. The SPSP Client's and Server's <a href="rfcs/0009-simple-payment-setup-protocol/#Definitions">STREAM Modules</a> will move as much value as possible while staying inside these bounds.
   4. If the SPSP Server reaches their <code>sendMax</code>, they end the stream and the connection. If the SPSP Client reaches their <code>receiveMax</code>, they will end the stream and the connection.</p>
-<p>The STREAM parameters - <code>sendMax</code> and <code>receiveMax</code> - are defined in <a href="/rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
+<p>The STREAM parameters - <code>sendMax</code> and <code>receiveMax</code> - are defined in <a href="rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
 <p>Note that if there are multiple open streams (via one or more STREAM connections) to the <code>destination_account</code> the Pull Payment Pointer is resolving to, the SPSP Server MUST only set one <code>sendMax</code> at a time.</p>
 <h2 id="specification">Specification</h2>
 <h3 id="query-get-ltspsp-endpointgt">Query (<code>GET &lt;SPSP Endpoint&gt;</code>)</h3>
@@ -185,13 +185,13 @@ Content-Type: application/spsp4+json
 <tbody>
 <tr>
 <td><code>destination_account</code></td>
-<td><a href="/rfcs/0015-ilp-addresses/">ILP Address</a></td>
-<td>(see <a href="/rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
+<td><a href="rfcs/0015-ilp-addresses/">ILP Address</a></td>
+<td>(see <a href="rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
 </tr>
 <tr>
 <td><code>shared_secret</code></td>
 <td>32 bytes, <a href="https://en.wikipedia.org/wiki/Base64">base64 encoded</a> (including padding)</td>
-<td>(see <a href="/rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
+<td>(see <a href="rfcs/0009-simple-payment-setup-protocol/#Response-Body">Simple Payment Setup Protocol</a>)</td>
 </tr>
 <tr>
 <td><code>pull</code></td>

@@ -172,7 +172,7 @@
 <li>Generating and fulfilling ILP packet conditions</li>
 <li>Connection migration</li>
 </ul>
-<p>STREAM is a successor to the <a href="/rfcs/0025-pre-shared-key-2/">Pre-Shared Key V2 (PSK2)</a> Transport Protocol and also takes significant inspiration from the <a href="https://tools.ietf.org/html/draft-ietf-quic-transport-10">QUIC</a> Internet Transport Protocol. Like PSK2, STREAM uses a shared secret to authenticate and encrypt multiple packets, as well as to generate the conditions and fulfillments. In addition, STREAM enables sending money and data in both directions between the two endpoints and automatically determines how much money and data can be sent in each ILP packet. STREAM borrows heavily from QUIC's packet format, stream multiplexing, and approach to flow control (see <a href="#appendix-a-similarities-and-differences-with-quic">Appendix A</a> for similarities and differences with QUIC).</p>
+<p>STREAM is a successor to the <a href="rfcs/0025-pre-shared-key-2/">Pre-Shared Key V2 (PSK2)</a> Transport Protocol and also takes significant inspiration from the <a href="https://tools.ietf.org/html/draft-ietf-quic-transport-10">QUIC</a> Internet Transport Protocol. Like PSK2, STREAM uses a shared secret to authenticate and encrypt multiple packets, as well as to generate the conditions and fulfillments. In addition, STREAM enables sending money and data in both directions between the two endpoints and automatically determines how much money and data can be sent in each ILP packet. STREAM borrows heavily from QUIC's packet format, stream multiplexing, and approach to flow control (see <a href="#appendix-a-similarities-and-differences-with-quic">Appendix A</a> for similarities and differences with QUIC).</p>
 <h2 id="2-conventions-and-definitions">2. Conventions and Definitions</h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in BCP 14 <a href="https://tools.ietf.org/html/rfc2119">RFC2119</a> <a href="https://tools.ietf.org/html/rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
 <p>Definitions of terms that are used in this document:</p>
@@ -192,7 +192,7 @@
 <p>This section provides a high-level description of key aspects of STREAM that are useful to understand before reading the full protocol outline.</p>
 <h3 id="31-relationship-with-other-protocols">3.1. Relationship with Other Protocols</h3>
 <p><img alt="STREAM in the Interledger Stack" src="../shared/graphs/stream-in-protocol-suite.svg"/></p>
-<p>STREAM is a Transport Protocol, designed to be used with <a href="/rfcs/0027-interledger-protocol-4/">ILPv4</a>. Application Layer protocols, such as the <a href="/rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol (SPSP)</a> can use STREAM to send money and data between endpoints.</p>
+<p>STREAM is a Transport Protocol, designed to be used with <a href="rfcs/0027-interledger-protocol-4/">ILPv4</a>. Application Layer protocols, such as the <a href="rfcs/0009-simple-payment-setup-protocol/">Simple Payment Setup Protocol (SPSP)</a> can use STREAM to send money and data between endpoints.</p>
 <h3 id="32-why-streams">3.2. Why Streams?</h3>
 <p>Some applications involve sending money and/or data on an ongoing basis, whereas others may deliver larger logical payments or messages. Streams provide a lightweight abstraction that can be used for either of these cases.</p>
 <p>In an application that uses an ongoing flow of money, an endpoint can open a single stream and continue sending money on it for the duration of some paid interaction.</p>
@@ -208,7 +208,7 @@
 <p>Implementations SHOULD use the ratio of the amount that arrived at the remote endpoint and the amount sent to determine the path exchange rate. They MAY send an unfulfillable test packet when the connection is initiated to estimate the path exchange rate.</p>
 <p>Implementations SHOULD set the minimum acceptable amount in each packet sent to prevent the remote endpoint from accepting a packet if the exchange rate was worse than expected. Implementations SHOULD NOT fulfill incoming Prepare packets with amounts less than is specified in the STREAM packet.</p>
 <h3 id="35-packets-and-frames">3.5. Packets and Frames</h3>
-<p>STREAM packets are encoded, <a href="#encryption">encrypted</a>, and sent as the <code>data</code> field in <a href="/rfcs/0027-interledger-protocol-4/#ilp-prepare">ILP Prepare, Fulfill, or Reject packets</a>.</p>
+<p>STREAM packets are encoded, <a href="#encryption">encrypted</a>, and sent as the <code>data</code> field in <a href="rfcs/0027-interledger-protocol-4/#ilp-prepare">ILP Prepare, Fulfill, or Reject packets</a>.</p>
 <p>Each STREAM packet consists of multiple <a href="#53-frames">frames</a>, which can be used to send money, data, or control-related information.</p>
 <h3 id="36-packet-acknowledgements-acks">3.6. Packet Acknowledgements (ACKs)</h3>
 <p>STREAM uses ILP Fulfill packets as acknowledgements of the frames contained in the corresponding Prepare packet. If a receiver wishes to reject or NACK one or more frames in a given Prepare packet, they MUST respond with an ILP Reject packet.</p>

@@ -100,7 +100,7 @@
     <div class="content doc-content">
         <h1 id="simple-payment-setup-protocol-spsp">Simple Payment Setup Protocol (SPSP)</h1>
 <h2 id="preface">Preface</h2>
-<p>This document describes the Simple Payment Setup Protocol (SPSP), a basic protocol for exchanging payment information between payee and payer to facilitate payment over Interledger. SPSP uses the <a href="/rfcs/0029-stream/">STREAM</a> transport protocol for condition generation and data encoding.</p>
+<p>This document describes the Simple Payment Setup Protocol (SPSP), a basic protocol for exchanging payment information between payee and payer to facilitate payment over Interledger. SPSP uses the <a href="rfcs/0029-stream/">STREAM</a> transport protocol for condition generation and data encoding.</p>
 <h2 id="introduction">Introduction</h2>
 <h3 id="motivation">Motivation</h3>
 <p>STREAM does not specify how payment details, such as the ILP address or shared secret, should be exchanged between the counterparties. SPSP is a minimal protocol that uses HTTPS for communicating these details.</p>
@@ -111,19 +111,19 @@
 <li><strong>SPSP Client</strong> - The application that uses SPSP to interact with the SPSP Server.</li>
 <li><strong>SPSP Server</strong> - The application that handles incoming SPSP requests from the SPSP Client.</li>
 <li><strong>SPSP Endpoint</strong> - The specific HTTPS endpoint on the SPSP Server used for setting up a payment.</li>
-<li><strong>STREAM Module</strong> - Software included in the SPSP Client and Server that implements the <a href="/rfcs/0029-stream/">STREAM</a> protocol.</li>
+<li><strong>STREAM Module</strong> - Software included in the SPSP Client and Server that implements the <a href="rfcs/0029-stream/">STREAM</a> protocol.</li>
 </ul>
 <h3 id="interfaces">Interfaces</h3>
-<p>SPSP may be used by end-user applications, such as a digital wallet with a user interface to initiate payments. SPSP Clients and Servers use the STREAM Module to send and receive Interledger payments. <a href="/rfcs/0026-payment-pointers/">Payment pointers</a> can be used as a persistent identifier on Interledger. Payment pointers can also be used as a unique identifier for an invoice to be paid or for a pull payment agreement. </p>
+<p>SPSP may be used by end-user applications, such as a digital wallet with a user interface to initiate payments. SPSP Clients and Servers use the STREAM Module to send and receive Interledger payments. <a href="rfcs/0026-payment-pointers/">Payment pointers</a> can be used as a persistent identifier on Interledger. Payment pointers can also be used as a unique identifier for an invoice to be paid or for a pull payment agreement. </p>
 <p>SPSP messages MUST be exchanged over HTTPS.</p>
 <h3 id="operation">Operation</h3>
 <p>Any SPSP Server will expose an HTTPS endpoint called the SPSP Endpoint. The SPSP Client can query this endpoint to get information about the SPSP Server's connection details, namely the ILP address and a shared secret. The SPSP Client can apply this information to establish a STREAM connection using the STREAM Module.</p>
 <h3 id="relation-to-other-protocols">Relation to Other Protocols</h3>
-<p>SPSP is used for exchanging connection information before an ILP payment or data transfer is initiated. The SPSP Client and Server use the <a href="/rfcs/0029-stream/">STREAM</a> transport protocol to generate the ILP packets. The SPSP Server generates the shared secret and ILP address to be used in STREAM and communicates it to the client over HTTPS.</p>
+<p>SPSP is used for exchanging connection information before an ILP payment or data transfer is initiated. The SPSP Client and Server use the <a href="rfcs/0029-stream/">STREAM</a> transport protocol to generate the ILP packets. The SPSP Server generates the shared secret and ILP address to be used in STREAM and communicates it to the client over HTTPS.</p>
 <h2 id="specification">Specification</h2>
 <p>The SPSP Endpoint is a URL the payment pointer resolves to, used by the SPSP Client to query information about the SPSP Server and set up payments. SPSP Clients SHOULD treat the URL as opaque and not depend on any information they derive from the URL. There are several supported ways to refer to an SPSP Endpoint:</p>
 <ul>
-<li><a href="/rfcs/0026-payment-pointers/">Payment pointer</a> (Recommended) <code>$alice.example.com</code> or <code>$example.com/bob</code>. This SHOULD be the only kind of SPSP identifier exposed to users.</li>
+<li><a href="rfcs/0026-payment-pointers/">Payment pointer</a> (Recommended) <code>$alice.example.com</code> or <code>$example.com/bob</code>. This SHOULD be the only kind of SPSP identifier exposed to users.</li>
 <li>Raw endpoint URL (Not recommended) <code>https://example.com/spsp/alice</code>. This SHOULD NOT be exposed to users, but SHOULD be supported by SPSP Clients.</li>
 </ul>
 <p>The SPSP Endpoint MUST respond to HTTPS <code>GET</code> requests in the following manner:</p>
@@ -198,13 +198,13 @@ Content-Type: application/spsp4+json
 <tbody>
 <tr>
 <td><code>destination_account</code></td>
-<td><a href="/rfcs/0015-ilp-addresses/">ILP Address</a></td>
+<td><a href="rfcs/0015-ilp-addresses/">ILP Address</a></td>
 <td>ILP Address of the SPSP Server. In case of push payments, this is the receiver. In case of pull payments, this is the sender.</td>
 </tr>
 <tr>
 <td><code>shared_secret</code></td>
 <td>32 bytes, <a href="https://en.wikipedia.org/wiki/Base64">base64 (base64url) encoded</a> (including padding)</td>
-<td>The shared secret to be used by this specific HTTP client in the <a href="/rfcs/0029-stream/">STREAM</a>. Should be shared only by the server and this specific HTTP client, and should therefore be different in each query response. Even though clients SHOULD accept base64url encoded secrets, base64 encoded secrets are recommended.</td>
+<td>The shared secret to be used by this specific HTTP client in the <a href="rfcs/0029-stream/">STREAM</a>. Should be shared only by the server and this specific HTTP client, and should therefore be different in each query response. Even though clients SHOULD accept base64url encoded secrets, base64 encoded secrets are recommended.</td>
 </tr>
 </tbody>
 </table>
@@ -220,7 +220,7 @@ Content-Type: application/spsp4+json
 </code></pre>
 <h2 id="model-of-operation">Model of Operation</h2>
 <h3 id="establishing-a-connection">Establishing a connection</h3>
-<p>We assume that the SPSP Client knows the SPSP Server's SPSP Endpoint (see <a href="/rfcs/0026-payment-pointers/">Payment pointers</a>).</p>
+<p>We assume that the SPSP Client knows the SPSP Server's SPSP Endpoint (see <a href="rfcs/0026-payment-pointers/">Payment pointers</a>).</p>
 <ol>
 <li>
 <p>The user's SPSP Client queries the SPSP Server's SPSP Endpoint.</p>
@@ -231,7 +231,7 @@ Content-Type: application/spsp4+json
 <li>The <code>destination_account</code> MUST be used as the STREAM <code>destinationAccount</code>.</li>
 <li>The <code>shared_secret</code> MUST be decoded from base64 and used as the STREAM <code>sharedSecret</code>.</li>
 </ul>
-<p>It MAY respond with additional information if it is an invoice server or a pull payment server. For more information, see <a href="/rfcs/0037-spsp-invoices/">SPSP Invoices</a> and <a href="/rfcs/0036-spsp-pull-payments/">SPSP Pull Payments</a>.</p>
+<p>It MAY respond with additional information if it is an invoice server or a pull payment server. For more information, see <a href="rfcs/0037-spsp-invoices/">SPSP Invoices</a> and <a href="rfcs/0036-spsp-pull-payments/">SPSP Pull Payments</a>.</p>
 </li>
 <li>
 <p>The SPSP Client establishes a STREAM connection to the SPSP Server using the SPSP Server's ILP address and shared secret.</p>
@@ -248,7 +248,7 @@ Content-Type: application/spsp4+json
 <p>Given the open STREAM connection, either the SPSP Client or the Server begins sending ILP packets of data.</p>
 <p>The size of the data SHOULD be defined setting STREAM <code>maxOffset</code>. Each application built on STREAM and using the principle of data transmission MAY define more restrictive requirements. </p>
 <hr/>
-<p>All STREAM parameters - <code>destinationAccount</code>, <code>sharedSecret</code>, <code>sendMax</code>, <code>receiveMax</code>, <code>maxOffset</code> - are defined in <a href="/rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
+<p>All STREAM parameters - <code>destinationAccount</code>, <code>sharedSecret</code>, <code>sendMax</code>, <code>receiveMax</code>, <code>maxOffset</code> - are defined in <a href="rfcs/0029-stream/#53-frames">STREAM's frame encoding</a>.</p>
 <p>Note that the SPSP Client and Server can send as many STREAM payments and data as they want using the same query response. If the STREAM connection is closed the Client SHOULD attempt to reconnect with the same parameters or it SHOULD query the Server again for new connection parameters once the time indicated in the <a href="#response-headers"><code>Cache-Control</code> header</a> has passed.</p>
     </div>
   </article>

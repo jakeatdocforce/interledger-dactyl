@@ -102,19 +102,19 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>This specification assumes the reader is familiar with the following documents:</p>
 <ul>
-<li><a href="/rfcs/0001-interledger-architecture/">Interledger Architecture</a></li>
-<li><a href="/rfcs/0027-interledger-protocol-4/">Interledger Protocol V4 (ILPv4)</a></li>
+<li><a href="rfcs/0001-interledger-architecture/">Interledger Architecture</a></li>
+<li><a href="rfcs/0027-interledger-protocol-4/">Interledger Protocol V4 (ILPv4)</a></li>
 </ul>
 <h2 id="terminology">Terminology</h2>
 <ul>
-<li>A <strong>node</strong> is a participant in an Interledger network. It may be a <a href="/rfcs/0001-interledger-architecture/#connectors">connector</a>, a sender or a receiver. </li>
+<li>A <strong>node</strong> is a participant in an Interledger network. It may be a <a href="rfcs/0001-interledger-architecture/#connectors">connector</a>, a sender or a receiver. </li>
 <li>Nodes are connected to each other and the relationship between two nodes is either:</li>
 <li><code>parent</code> and <code>child</code> (one node is the <code>parent</code> of another node that is relatively its <code>child</code>), or,</li>
 <li><code>peer</code> and <code>peer</code> (two nodes are peered with one another).</li>
 </ul>
 <h2 id="overview">Overview</h2>
-<p>Interledger is a protocol suite that consists of several protocols including the <a href="/rfcs/0023-bilateral-transfer-protocol/">Bilateral Transfer Protocol</a>, the Route Broadcasting Protocol and others necessary for establishment, operation and maintenance of the network. Interledger Dynamic Configuration Protocol (ILDCP) is one of these protocols.</p>
-<p>In order to participate in the network a node must have an <a href="/rfcs/0015-ilp-addresses/">ILP address</a>. This address is part of a heirarchical address space where child nodes MAY be allocated addresses within the address space of their parent node. This makes routing on the network more efficient than if all nodes had top-level addresses.</p>
+<p>Interledger is a protocol suite that consists of several protocols including the <a href="rfcs/0023-bilateral-transfer-protocol/">Bilateral Transfer Protocol</a>, the Route Broadcasting Protocol and others necessary for establishment, operation and maintenance of the network. Interledger Dynamic Configuration Protocol (ILDCP) is one of these protocols.</p>
+<p>In order to participate in the network a node must have an <a href="rfcs/0015-ilp-addresses/">ILP address</a>. This address is part of a heirarchical address space where child nodes MAY be allocated addresses within the address space of their parent node. This makes routing on the network more efficient than if all nodes had top-level addresses.</p>
 <p>A node is therefore either configured with an address which it broadcasts to its peers or, if the node has a parent in the network hierarchy, the ILP address of the child node can be allocated to it by the parent. This is done using ILDCP.</p>
 <p>In short, <strong>ILDCP is a protocol used for transferring node and ledger information from a parent node to a child node</strong>. The transferred information is:</p>
 <ul>
@@ -135,7 +135,7 @@
 <li>If the request cannot be processed, the parent node responds with an error</li>
 </ol>
 <h3 id="packet">Packet</h3>
-<p>The request and the response above are transferred in <a href="/rfcs/0027-interledger-protocol-4/#specification">ILP packets</a>. </p>
+<p>The request and the response above are transferred in <a href="rfcs/0027-interledger-protocol-4/#specification">ILP packets</a>. </p>
 <p>The <code>fulfillment</code> of the response packet is always a zero-filled 32 byte octet string, therefore the condition is always the SHA-256 hash digest of that, i.e. the Base64 decoded value of <code>Zmh6rfhivXdsj8GLjp+OIAiXFIVu4jOzkCpZHQ1fKSU=</code>.</p>
 <p>As with other bilateral protocols the packets are addressed directly to the peer using the <code>peer.</code> address prefix. ILDCP packets are specifically identified using the address <code>peer.config</code>.</p>
 <p>All current implementations of ILDCP default to an amount of <code>0</code> in the ILP packets used to request configuration. In future, peers may agree to pay a charge for reserving an address, in which case this may become a non-zero amount indicating the amount paid by the child to reserve an address. Future version of the protocol may allow for the child to explicitly request an address which may not be restricted to being in the parent's address-space.</p>
@@ -175,7 +175,7 @@
 <h3 id="asn1-definition">ASN.1 Definition</h3>
 <p>The ASN.1 definition of ILP packets is described in <a href="../asn1/InterledgerProtocol.asn">InterledgerProtocol.asn</a> and Dynamic Configuration Protocol data in <a href="../asn1/DynamicConfigurationProtocol.asn">DynamicConfigurationProtocol.asn</a>.</p>
 <h3 id="encoding">Encoding</h3>
-<p>All ASN.1 types are encoded using <a href="/rfcs/0030-notes-on-oer-encoding/">Octet Encoding Rules</a> as is the norm with all Interledger protocols.</p>
+<p>All ASN.1 types are encoded using <a href="rfcs/0030-notes-on-oer-encoding/">Octet Encoding Rules</a> as is the norm with all Interledger protocols.</p>
     </div>
   </article>
         </main>
