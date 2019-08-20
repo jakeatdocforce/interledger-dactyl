@@ -20,8 +20,9 @@ targets:
             - demote_headers
             - link_replacement
         demote_headers_pdf_only: true
-        link_re_subs:
-            "../([0-9]{4}-[a-z0-9-]+)/([0-9]{4}-[a-z0-9-]+).md": "/rfcs/\\1/"
+        link_re_subs: 
+            {"../([0-9]{4}-[a-z0-9-]+)/([0-9]{4}-[a-z0-9-]+).md": "rfcs/\\1/",
+             "..(/asn1/.*?.asn)": "rfcs/\\1.html"}
 
 pages:
 
@@ -277,7 +278,124 @@ pages:
             - en  
 
 
+# ASN ---------------------------------------------------------------------
 
+    -   name: Interledger ASN.1
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/README.md
+        template: template-spec.html
+        targets:
+            - en  
+
+    -   name: BilateralTransferProtocol.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/BilateralTransferProtocol.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/BilateralTransferProtocol.asn
+        template: template-asn.html
+        targets:
+            - en              
+
+    -   name: DynamicConfigurationProtocol.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/DynamicConfigurationProtocol.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/DynamicConfigurationProtocol.asn
+        template: template-asn.html
+        targets:
+            - en  
+
+    -   name: GenericTypes.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/GenericTypes.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/GenericTypes.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerErrorData.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerErrorData.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerErrorData.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerPacket.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerPacket.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerPacket.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerPaymentRequest.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerPaymentRequest.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerPaymentRequest.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerProtocol.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerProtocol.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerProtocol.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerQuotingProtocol.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerQuotingProtocol.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerQuotingProtocol.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: InterledgerTypes.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/InterledgerTypes.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/InterledgerTypes.asn
+        template: template-asn.html
+        targets:
+            - en 
+
+    -   name: LegacyInterledgerProtocol.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/LegacyInterledgerProtocol.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/LegacyInterledgerProtocol.asn
+        template: template-asn.html
+        targets:
+            - en
+
+    -   name: PreSharedKeyV2.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/PreSharedKeyV2.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/PreSharedKeyV2.asn
+        template: template-asn.html
+        targets:
+            - en            
+
+    -   name: Stream.asn
+        funnel: Docs
+        doc_type: ASN
+        html: rfcs/asn1/Stream.asn.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/asn1/Stream.asn
+        template: template-asn.html
+        targets:
+            - en
 
 
 

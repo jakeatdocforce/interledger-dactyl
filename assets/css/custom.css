@@ -167,6 +167,15 @@ pre code {
   white-space: pre;
 }
 
+.nohighlight {
+  margin-top: 50px;
+}
+.nohighlight p {
+  color: white;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
 a {
   color: #ff0c3e;
 }

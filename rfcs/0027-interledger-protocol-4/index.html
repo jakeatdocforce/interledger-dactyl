@@ -196,7 +196,7 @@
 </tr>
 </tbody>
 </table>
-<p>See the ASN.1 definition <a href="../asn1/InterledgerPacket.asn">here</a>.</p>
+<p>See the ASN.1 definition <a href="rfcs//asn1/InterledgerPacket.asn.html">here</a>.</p>
 <h4 id="ilp-prepare">ILP Prepare</h4>
 <p>ILP Prepare packets are <code>type</code> 12.</p>
 <p>The <code>amount</code> and <code>expiresAt</code> are fixed-length fields so that they may be modified in-place (without copying the rest of the packet) by each connector. These are the only fields that are modified by connectors as the packet is forwarded.</p>
@@ -216,7 +216,7 @@
 </tr>
 <tr>
 <td><code>expiresAt</code></td>
-<td>Fixed-Length <a href="../asn1/InterledgerTypes.asn">Interledger Timestamp</a></td>
+<td>Fixed-Length <a href="rfcs//asn1/InterledgerTypes.asn.html">Interledger Timestamp</a></td>
 <td>Date and time when the packet expires. Each connector changes the value of this field to set the expiry to an earlier time, before forwarding the packet.</td>
 </tr>
 <tr>
@@ -237,7 +237,7 @@
 </tbody>
 </table>
 <p><strong>Note:</strong> There is no <code>from</code> or <code>source</code> address in the ILP Prepare packet. Each hop MUST determine which of their immediate peers or customers the packet came from (to debit the correct account) based on the <em>authenticated</em> communication channel the packet was received through. Also, higher-level protocols MAY communicate the sender's address to the receiver if the use case calls for receivers to send ILP Prepare packets to the sender (they can communicate responses to the sender using the <code>data</code> field in ILP Fulfill and Reject packets).</p>
-<p>See the ASN.1 definition <a href="../asn1/InterledgerProtocol.asn">here</a>.</p>
+<p>See the ASN.1 definition <a href="rfcs//asn1/InterledgerProtocol.asn.html">here</a>.</p>
 <h4 id="ilp-fulfill">ILP Fulfill</h4>
 <p>ILP Fulfill packets are <code>type</code> 13.</p>
 <table>
@@ -261,7 +261,7 @@
 </tr>
 </tbody>
 </table>
-<p>See the ASN.1 definition <a href="../asn1/InterledgerProtocol.asn">here</a>.</p>
+<p>See the ASN.1 definition <a href="rfcs//asn1/InterledgerProtocol.asn.html">here</a>.</p>
 <h4 id="ilp-reject">ILP Reject</h4>
 <p>ILP Reject packets are <code>type</code> 14.</p>
 <table>
@@ -295,7 +295,7 @@
 </tr>
 </tbody>
 </table>
-<p>See the ASN.1 definition <a href="../asn1/InterledgerProtocol.asn">here</a>.</p>
+<p>See the ASN.1 definition <a href="rfcs//asn1/InterledgerProtocol.asn.html">here</a>.</p>
 <h3 id="error-codes">Error Codes</h3>
 <h4 id="f__-final-error">F__ - Final Error</h4>
 <p>Final errors indicate that the payment is invalid and should not be retried unless the details are changed.</p>
@@ -361,7 +361,7 @@
 <td><strong>F08</strong></td>
 <td><strong>Amount Too Large</strong></td>
 <td>The packet amount is higher than the maximum a connector is willing to forward. Senders MAY send another packet with a lower amount. Connectors that produce this error SHOULD encode the amount they received and their maximum in the <code>data</code> to help senders determine how much lower the packet amount should be.</td>
-<td>See <a href="../asn1/InterledgerErrorData.asn">ASN.1</a></td>
+<td>See <a href="rfcs//asn1/InterledgerErrorData.asn.html">ASN.1</a></td>
 </tr>
 <tr>
 <td><strong>F99</strong></td>

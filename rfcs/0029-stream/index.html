@@ -261,7 +261,7 @@
 <p>All STREAM packets are encrypted using <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">AES-256-GCM</a> with a 12-byte Initialization Vector (IV) and a 16-Byte Authentication Tag.</p>
 <p>If subsequent versions support additional encryption algorithms, those details should be exchanged between the sender and receiver when they establish the shared secret. If a receiver attempts to decrypt an incoming packet but is unable to (perhaps because the sender is using an unsupported cipher), the receiver SHOULD reject the incoming transfer with an <code>F06: Unexpected Payment</code> error.</p>
 <h4 id="511-encryption-envelope">5.1.1. Encryption Envelope</h4>
-<p>See the <a href="../asn1/Stream.asn">ASN.1 definition</a> for the formal encryption envelope specification.</p>
+<p>See the <a href="rfcs//asn1/Stream.asn.html">ASN.1 definition</a> for the formal encryption envelope specification.</p>
 <table>
 <thead>
 <tr>
@@ -305,7 +305,7 @@ var { ciphertext, auth_tag } = aes_256_gcm(encryption_key, iv, data);
 <li>When decoding a <code>StreamMoneyBlockedFrame</code> frame, if the <code>sendMax</code> is too large to fit in a <code>UInt64</code>, decode <code>sendMax</code> as <code>MaxUInt64</code>.</li>
 </ul>
 <h3 id="52-stream-packet">5.2. STREAM Packet</h3>
-<p>See the <a href="../asn1/Stream.asn">ASN.1 definition</a> for the formal packet specification.</p>
+<p>See the <a href="rfcs//asn1/Stream.asn.html">ASN.1 definition</a> for the formal packet specification.</p>
 <table>
 <thead>
 <tr>
@@ -348,7 +348,7 @@ var { ciphertext, auth_tag } = aes_256_gcm(encryption_key, iv, data);
 </tbody>
 </table>
 <h3 id="53-frames">5.3. Frames</h3>
-<p>See the <a href="../asn1/Stream.asn">ASN.1 definition</a> for the formal specification of the frame encoding and each frame type.</p>
+<p>See the <a href="rfcs//asn1/Stream.asn.html">ASN.1 definition</a> for the formal specification of the frame encoding and each frame type.</p>
 <p>Each frame is encoded with its 1-byte type and length prefix. Implementations MUST ignore frames with unknown types. Future versions of STREAM may add new frame types.</p>
 <table>
 <thead>
