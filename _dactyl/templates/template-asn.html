@@ -30,7 +30,7 @@
 
     {% for page in pages|selectattr("doc_type", 'defined_and_equalto', "ASN") %}
         {% if loop.index != 1 %}
-            <li class="level-2"><a href="{{page.html}}">{{page.name}}</a></li>
+            <li class="level-2"><a href="/{{page.html}}">{{page.name}}</a></li>
         {% endif %}
     {% endfor %}
 

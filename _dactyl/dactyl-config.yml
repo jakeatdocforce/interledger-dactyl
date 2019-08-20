@@ -21,8 +21,8 @@ targets:
             - link_replacement
         demote_headers_pdf_only: true
         link_re_subs: 
-            {"../([0-9]{4}-[a-z0-9-]+)/([0-9]{4}-[a-z0-9-]+).md": "rfcs/\\1/",
-             "..(/asn1/.*?.asn)": "rfcs/\\1.html"}
+            {"../([0-9]{4}-[a-z0-9-]+)/([0-9]{4}-[a-z0-9-]+).md": "/rfcs/\\1/",
+             "..(/asn1/.*?.asn)": "/rfcs\\1.html"}
 
 pages:
 
